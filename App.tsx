@@ -1,20 +1,49 @@
-import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View } from 'react-native';
+import { Routes } from "./src/routes";
+import { AuthProvider } from "./src/contexts/AuthContext";
+import { ToastProvider } from "./src/contexts/ToastContext";
+import { TravelProvider } from "./src/contexts/TravelContext";
+
+import { GestureHandlerRootView } from "react-native-gesture-handler";
+import { SafeAreaProvider } from "react-native-safe-area-context";
+
+import * as Notifications from "expo-notifications";
+import { useEffect } from "react";
+
+Notifications.setNotificationHandler({
+  handleNotification: async () => ({
+    shouldShowAlert: true,
+    shouldPlaySound: true,
+    shouldSetBadge: false,
+    shouldShowBanner: true,
+    shouldShowList: true,
+  }),
+});
 
 export default function App() {
+
+  useEffect(() => {
+    async function registerForPushNotifications() {
+      const { status } = await Notifications.requestPermissionsAsync();
+
+      if (status !== "granted") {
+        alert("Permissão de notificação não concedida!");
+      }
+    }
+
+    registerForPushNotifications();
+  }, []);
+
   return (
-    <View style={styles.container}>
-      <Text>Open up App.tsx to start working on your app!</Text>
-      <StatusBar style="auto" />
-    </View>
+    <GestureHandlerRootView style={{ flex: 1 }}>
+      <SafeAreaProvider>
+        <AuthProvider>
+          <ToastProvider>
+            <TravelProvider>
+              <Routes />
+            </TravelProvider>
+          </ToastProvider>
+        </AuthProvider>
+      </SafeAreaProvider>
+    </GestureHandlerRootView>
   );
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-});
