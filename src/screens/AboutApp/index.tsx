@@ -23,7 +23,6 @@ import { useNavigation } from "@react-navigation/native";
 
 import useRighteousFont from "../../hooks/useFont";
 import { api } from "../../services/api";
-import { PartnersCarousel } from "../../components/PartnersCarousel";
 
 const { width, height } = Dimensions.get("window");
 
@@ -760,7 +759,7 @@ export function AboutApp() {
     if (!fontLoaded) {
         return (
             <View style={styles.loaderScreen}>
-                <LinearGradient colors={["#020202", "#0A0A0A", "#111111"]} style={StyleSheet.absoluteFillObject} />
+                <LinearGradient colors={["#020202", "#0A0A0A", "#111111"]} style={StyleSheet.absoluteFill} />
                 <ActivityIndicator size="large" color="#FFFFFF" />
             </View>
         );
@@ -773,7 +772,7 @@ export function AboutApp() {
             <LinearGradient
                 colors={["#010101", "#050505", "#090909", "#0E0E0E"]}
                 locations={[0, 0.34, 0.7, 1]}
-                style={StyleSheet.absoluteFillObject}
+                style={StyleSheet.absoluteFill}
             />
 
             <Animated.View
@@ -809,7 +808,7 @@ export function AboutApp() {
 
                     <LinearGradient
                         colors={["#020202", "#060606", "#0A0A0A", "#111111"]}
-                        style={StyleSheet.absoluteFillObject}
+                        style={StyleSheet.absoluteFill}
                     />
 
                     <Animated.View
@@ -853,7 +852,7 @@ export function AboutApp() {
                     />
 
                     <Animated.Image
-                        source={{ uri: "https://www.portalbueno.com.br/uploads/news/03_11_2023_065141_338.png" }}
+                        source={require("../../assets/images/vuptWhite.png")}
                         style={{
                             position: "absolute",
                             width: 320,
@@ -917,7 +916,7 @@ export function AboutApp() {
                             ]}
                         >
                             
-                            <View style={{justifyContent: "center", alignItems: "center"}}>
+                            {/* <View style={{justifyContent: "center", alignItems: "center"}}>
                                 <Image
                                     source={{ uri: "https://www.portalbueno.com.br/uploads/news/03_11_2023_065141_338.png" }}
                                     style={{
@@ -927,8 +926,7 @@ export function AboutApp() {
                                         alignItems: "center"
                                     }}
                                 />
-                            </View>
-                            <PartnersCarousel />
+                            </View> */}
                             <Animated.View
                                 style={{
                                     opacity: heroTitleOpacity,
@@ -1164,12 +1162,8 @@ const styles = StyleSheet.create({
         shadowRadius: 30,
         shadowOffset: { width: 0, height: 0 },
     },
-
-    /**
-     * INTRO
-     */
     introOverlay: {
-        ...StyleSheet.absoluteFillObject,
+        ...StyleSheet.absoluteFill,
         zIndex: 30,
         justifyContent: "center",
         alignItems: "center",

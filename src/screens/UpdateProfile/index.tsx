@@ -44,6 +44,7 @@ type ProfileInputProps = {
     onBlur: (field: FieldName) => void;
     onChangeText: (value: string) => void;
     inputRef?: (ref: TextInput | null) => void;
+    disabled?: boolean
 } & TextInputProps;
 
 const INITIAL_FORM: ProfileFormData = {
@@ -107,6 +108,7 @@ function ProfileInput({
     onChangeText,
     inputRef,
     style,
+    disabled,
     ...rest
 }: ProfileInputProps) {
     const isFocused = focusedField === field;
@@ -142,6 +144,7 @@ function ProfileInput({
                     onBlur={() => onBlur(field)}
                     onChangeText={onChangeText}
                     autoCorrect={false}
+                    editable={!disabled}
                     {...rest}
                 />
             </View>
@@ -425,11 +428,6 @@ export function UpdateProfile() {
                     keyboardDismissMode={Platform.OS === "ios" ? "interactive" : "on-drag"}
                 >
                     <View style={styles.card}>
-                        <Text style={styles.sectionTitle}>Dados pessoais</Text>
-                        <Text style={styles.sectionSubtitle}>
-                            Mantenha suas informações atualizadas para garantir uma melhor experiência no aplicativo.
-                        </Text>
-
                         <ProfileInput
                             label="Nome"
                             field="usu_nome"
@@ -447,6 +445,7 @@ export function UpdateProfile() {
                             }}
                             returnKeyType="next"
                             onSubmitEditing={() => focusField("usu_email")}
+                            disabled
                             blurOnSubmit={false}
                         />
 
@@ -512,6 +511,7 @@ export function UpdateProfile() {
                             returnKeyType="done"
                             onSubmitEditing={handleSave}
                         />
+                        
 
                         <TouchableOpacity
                             style={[
@@ -531,13 +531,6 @@ export function UpdateProfile() {
                                 </>
                             )}
                         </TouchableOpacity>
-
-                        <View style={styles.footerInfo}>
-                            <Feather name="info" size={14} color="#6B7280" />
-                            <Text style={styles.footerInfoText}>
-                                Os campos marcados com * são obrigatórios.
-                            </Text>
-                        </View>
                     </View>
                 </ScrollView>
             </KeyboardAvoidingView>
@@ -559,32 +552,19 @@ const styles = StyleSheet.create({
         justifyContent: "center",
     },
     content: {
-        padding: 16,
-        paddingBottom: 32,
+        padding: 12,
     },
     card: {
         padding: 14,
     },
-    sectionTitle: {
-        fontFamily: "Righteous",
-        fontSize: 17,
-        color: "#111827",
-        marginTop: 6,
-        marginBottom: 4,
-    },
-    sectionSubtitle: {
-        fontFamily: "Righteous",
-        fontSize: 12,
-        color: "#6B7280",
-        lineHeight: 18,
-        marginBottom: 14,
-    },
+
     fieldContainer: {
-        marginBottom: 14,
+        marginBottom: 12,
     },
     fieldLabel: {
+        marginLeft: 12,
         fontFamily: "Righteous",
-        fontSize: 12,
+        fontSize: 16,
         color: "#374151",
         marginBottom: 8,
     },
@@ -593,13 +573,14 @@ const styles = StyleSheet.create({
     },
     inputWrapper: {
         minHeight: 58,
-        borderRadius: 18,
+        borderRadius: 12,
         borderWidth: 1,
         borderColor: "#E5E7EB",
         backgroundColor: "#FFFFFF",
         flexDirection: "row",
         alignItems: "center",
-        paddingHorizontal: 14,
+        paddingHorizontal: 18,
+        width: "100%"
     },
     inputWrapperFocused: {
         borderColor: "#111827",
@@ -643,17 +624,5 @@ const styles = StyleSheet.create({
         fontSize: 14,
         color: "#FFFFFF",
     },
-    footerInfo: {
-        marginTop: 14,
-        flexDirection: "row",
-        alignItems: "center",
-        gap: 8,
-    },
-    footerInfoText: {
-        flex: 1,
-        fontFamily: "Righteous",
-        fontSize: 11,
-        color: "#6B7280",
-        lineHeight: 16,
-    },
+
 });

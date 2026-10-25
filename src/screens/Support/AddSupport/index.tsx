@@ -23,6 +23,8 @@ import { useToast } from "../../../contexts/ToastContext";
 
 import supportAnimation from "../../../assets/animations/supportAnimation.json";
 import emptyAnimation from "../../../assets/animations/emptyAnimation.json";
+import { Header } from "../../../components/Header";
+import { SafeAreaView } from "react-native-safe-area-context";
 
 type TravelItem = {
   via_codigo: number;
@@ -416,25 +418,15 @@ export function AddSupport() {
 
   return (
     <>
-      <View style={styles.container}>
+      <SafeAreaView style={styles.container}>
+        <Header title="Novo chamado" subtitle="Abra uma solicitação!" showBack />
+
         <ScrollView
           showsVerticalScrollIndicator={false}
           contentContainerStyle={styles.content}
           keyboardShouldPersistTaps="handled"
         >
-          <View style={styles.header}>
-            <TouchableOpacity
-              activeOpacity={0.85}
-              onPress={() => navigation.goBack()}
-              style={styles.backButton}
-            >
-              <Ionicons name="arrow-back" size={20} color="#0F172A" />
-            </TouchableOpacity>
 
-            <Text style={styles.headerTitle}>Novo chamado</Text>
-
-            <View style={styles.headerSpacer} />
-          </View>
 
           <View style={styles.hero}>
             <View style={styles.heroAnimationWrapper}>
@@ -445,13 +437,7 @@ export function AddSupport() {
                 style={styles.heroAnimation}
               />
             </View>
-
             <Text style={styles.title}>Abrir solicitação de suporte</Text>
-
-            <Text style={styles.subtitle}>
-              Selecione a viagem relacionada ao ocorrido, escolha o motivo e
-              descreva o que aconteceu com clareza para agilizar o atendimento.
-            </Text>
           </View>
 
           <View style={styles.section}>
@@ -682,7 +668,7 @@ export function AddSupport() {
             )}
           </TouchableOpacity>
         </ScrollView>
-      </View>
+      </SafeAreaView>
 
       <Modalize
         ref={modalizeRef}
@@ -776,54 +762,19 @@ export function AddSupport() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+    margin: 5,
     backgroundColor: "#F8FAFC",
   },
 
   content: {
-    paddingHorizontal: 20,
-    paddingTop: Platform.OS === "ios" ? 56 : 24,
+    paddingTop: Platform.OS === "ios" ? 18 : 14,
     paddingBottom: 34,
   },
-
   centeredState: {
     flex: 1,
     alignItems: "center",
     justifyContent: "center",
     backgroundColor: "#F8FAFC",
-  },
-
-  header: {
-    flexDirection: "row",
-    alignItems: "center",
-    justifyContent: "space-between",
-    marginBottom: 18,
-  },
-
-  backButton: {
-    width: 44,
-    height: 44,
-    borderRadius: 16,
-    backgroundColor: "#FFFFFF",
-    borderWidth: 1,
-    borderColor: "#E2E8F0",
-    alignItems: "center",
-    justifyContent: "center",
-    shadowColor: "#0F172A",
-    shadowOffset: { width: 0, height: 6 },
-    shadowOpacity: 0.04,
-    shadowRadius: 12,
-    elevation: 2,
-  },
-
-  headerTitle: {
-    fontSize: 18,
-    fontFamily: "Righteous",
-    color: "#0F172A",
-  },
-
-  headerSpacer: {
-    width: 44,
-    height: 44,
   },
 
   hero: {
@@ -835,9 +786,6 @@ const styles = StyleSheet.create({
     width: 154,
     height: 154,
     borderRadius: 28,
-    backgroundColor: "#FFFFFF",
-    borderWidth: 1,
-    borderColor: "#E2E8F0",
     alignItems: "center",
     justifyContent: "center",
     marginBottom: 14,
@@ -849,8 +797,8 @@ const styles = StyleSheet.create({
   },
 
   heroAnimation: {
-    width: 138,
-    height: 138,
+    width: 200,
+    height: 148,
   },
 
   title: {
@@ -860,13 +808,12 @@ const styles = StyleSheet.create({
     textAlign: "center",
     marginBottom: 8,
   },
-
   subtitle: {
     fontSize: 13,
     lineHeight: 22,
     fontFamily: "Righteous",
     color: "#64748B",
-    textAlign: "center",
+    textAlign: "left",
     paddingHorizontal: 8,
   },
 

@@ -186,8 +186,14 @@ const reviewInlineStyles = {
 const modalStyles = {
     overlay: {
         flex: 1,
-        backgroundColor: "rgba(0,0,0,0.45)",
         justifyContent: "flex-end" as const,
+        shadowColor: "#000",
+        shadowOffset: {
+            width: 2,
+            height: 1,
+        },
+        shadowOpacity: 0.8,
+        shadowRadius: 5,
     },
     sheet: {
         backgroundColor: "#FFF",
@@ -218,6 +224,7 @@ const modalStyles = {
         marginBottom: 16,
     },
     selectedStarsRow: {
+        justifyContent: "space-around" as const,
         flexDirection: "row" as const,
         alignItems: "center" as const,
         gap: 6,
@@ -1094,9 +1101,7 @@ export function Travels() {
                         <View style={modalStyles.handle} />
 
                         <Text style={modalStyles.modalTitle}>
-                            {reviewModalStep === "question"
-                                ? "Deseja adicionar um comentário?"
-                                : "Escreva um comentário"}
+                            {reviewModalStep === "question" ? "Deseja adicionar um comentário?" : "Escreva um comentário"}
                         </Text>
 
                         <Text style={modalStyles.modalSubtitle}>

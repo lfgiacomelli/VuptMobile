@@ -11,7 +11,6 @@ import {
     Linking,
     Alert,
     RefreshControl,
-    Platform,
 } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { Ionicons } from "@expo/vector-icons";
@@ -24,7 +23,6 @@ import { Header } from "../../components/Header";
 import useRighteousFont from "../../hooks/useFont";
 import { useToast } from "../../contexts/ToastContext";
 import { useNavigation } from "@react-navigation/native";
-import { LinearGradient } from "expo-linear-gradient";
 
 type PermissionStatusUI = "granted" | "denied" | "undetermined";
 
@@ -416,22 +414,19 @@ export function Settings() {
     const handlePrivacy = useCallback(() => {
         Alert.alert(
             "Privacidade",
-            "Aqui você pode direcionar para sua tela ou página de política de privacidade."
+            "Acesse informações sobre a privacidade."
         );
     }, []);
 
     const handleTerms = useCallback(() => {
         Alert.alert(
             "Termos de uso",
-            "Aqui você pode direcionar para sua tela ou página de termos de uso."
+            "Acesse os termos de uso"
         );
     }, []);
 
     const handleHelp = useCallback(() => {
-        Alert.alert(
-            "Central de ajuda",
-            "Aqui você pode abrir FAQ, WhatsApp de suporte ou chat de atendimento."
-        );
+        navigation.navigate("Support")
     }, []);
 
     const handleAbout = useCallback(() => {
@@ -470,32 +465,6 @@ export function Settings() {
                         />
                     }
                 >
-                        <View style={styles.section}>
-                        <Text style={styles.sectionTitle}>Permissões do aplicativo</Text>
-                        <Text style={styles.sectionDescription}>
-                            Essas permissões impactam diretamente a experiência de uso do app.
-                        </Text>
-
-                        <PermissionCard
-                            title="Localização"
-                            subtitle="Permite detectar sua posição para rotas, origem e acompanhamento da viagem."
-                            icon="location-outline"
-                            status={locationPermission}
-                            onRequest={requestLocationPermission}
-                            onOpenSettings={openSystemSettings}
-                            loading={loadingLocation}
-                        />
-
-                        <PermissionCard
-                            title="Notificações"
-                            subtitle="Permite receber alertas sobre atualizações, viagens, status e avisos importantes."
-                            icon="notifications-outline"
-                            status={notificationPermission}
-                            onRequest={requestNotificationPermission}
-                            onOpenSettings={openSystemSettings}
-                            loading={loadingNotifications}
-                        />
-                    </View>
 
                     <View style={styles.section}>
                         <Text style={styles.sectionTitle}>Preferências</Text>
@@ -512,36 +481,6 @@ export function Settings() {
                                 onChange={(value) =>
                                     updatePreference("notificationsEnabled", value)
                                 }
-                            />
-
-                            <View style={styles.rowDivider} />
-
-                            <PreferenceRow
-                                icon="volume-high-outline"
-                                title="Som"
-                                subtitle="Reproduz som em notificações e interações importantes."
-                                value={preferences.soundEnabled}
-                                onChange={(value) => updatePreference("soundEnabled", value)}
-                            />
-
-                            <View style={styles.rowDivider} />
-
-                            <PreferenceRow
-                                icon="phone-portrait-outline"
-                                title="Vibração"
-                                subtitle="Ativa feedback tátil em notificações e ações do app."
-                                value={preferences.vibrationEnabled}
-                                onChange={(value) => updatePreference("vibrationEnabled", value)}
-                            />
-
-                            <View style={styles.rowDivider} />
-
-                            <PreferenceRow
-                                icon="refresh-outline"
-                                title="Atualização automática"
-                                subtitle="Mantém dados e status atualizados automaticamente."
-                                value={preferences.autoRefreshEnabled}
-                                onChange={(value) => updatePreference("autoRefreshEnabled", value)}
                             />
 
                             <View style={styles.rowDivider} />

@@ -23,7 +23,6 @@ import { useToast } from "../../contexts/ToastContext";
 import { useTravel } from "../../contexts/TravelContext";
 import { ActiveTravelCard } from "../../components/ActiveTravelCard";
 import { HomeHeader } from "../../components/HomeHeader";
-import { PagerAds } from "../../components/PagerAds";
 
 import { styles } from "./styles";
 
@@ -126,7 +125,7 @@ export function App() {
       setError(null);
 
       const response = await api.get<{ success: boolean; data: Empresa[] }>(
-        `/users/companies/${encodeURIComponent(cidade)}`
+        `/companies/${encodeURIComponent(cidade)}`
       );
 
       setEmpresas(response?.data?.data || []);
@@ -146,12 +145,11 @@ export function App() {
       setLoadingPopular(true);
 
       const response = await api.get<{ success: boolean; data: Empresa[] }>(
-        `/users/popular-companies/${encodeURIComponent(cidade)}`
+        `/companies/popular/${encodeURIComponent(cidade)}`
       );
 
       setPopularCompanies(response?.data?.data || []);
     } catch (err) {
-      console.error(err);
       setPopularCompanies([]);
     } finally {
       setLoadingPopular(false);
@@ -388,8 +386,8 @@ export function App() {
         </View>
         <TouchableOpacity activeOpacity={0.9} style={styles.discoveryBanner}>
           <View style={styles.discoveryContent}>
-            <Text style={styles.discoveryEyebrow}>Mobilidade em {"sua cidade"}</Text>
-            {/* <Text style={styles.discoveryEyebrow}>Mobilidade em {cidadeLabel || "Sua cidade"}</Text> */}
+            {/* <Text style={styles.discoveryEyebrow}>Mobilidade em {"sua cidade"}</Text> */}
+            <Text style={styles.discoveryEyebrow}>Mobilidade em {cidadeLabel || "Sua cidade"}</Text>
 
             <Text style={styles.discoveryTitle}>
               Solicite sua corrida com praticidade
@@ -466,7 +464,6 @@ export function App() {
   return (
     <View style={styles.container}>
       <HomeHeader />
-      {/* <PagerAds /> */}
 
       {loadingCompanies && empresas.length === 0 ? (
         <View style={styles.initialLoaderContainer}>
@@ -500,7 +497,6 @@ export function App() {
       )}
       <StatusBar
         barStyle="light-content"
-        translucent
       />
     </View>
   );

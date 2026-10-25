@@ -75,17 +75,13 @@ export function Company() {
   useEffect(() => {
     async function loadCompany() {
       try {
-        const response = await api.get<ApiResponse<CompanyDTO>>(
-          `/users/company/${emp_codigo}`
-        );
+        const response = await api.get<ApiResponse<CompanyDTO>>(`/companies/${emp_codigo}`);
 
         const companyData = response.data.data;
         setCompany(companyData);
+        // console.log(companyData)
 
-        const attr = Array.isArray(companyData.atributos)
-          ? companyData.atributos[0]
-          : companyData.atributos ?? null;
-
+        const attr = Array.isArray(companyData.atributos) ? companyData.atributos[0] : companyData.atributos ?? null;
         setAttributes(attr);
       } catch (error) {
         console.error("Erro ao carregar empresa:", error);
@@ -277,13 +273,13 @@ export function Company() {
 
           <View style={styles.cardContent}>
             <Text style={styles.addressText}>
-              {company.emp_logradouro}, {company.emp_numero}
+              {company.end_logradouro}, {company.end_numero}
             </Text>
             <Text style={styles.addressText}>
-              {company.emp_bairro}
+              {company.end_bairro}
             </Text>
             <Text style={styles.addressText}>
-              {company.emp_cidade} - CEP: {company.emp_cep}
+              {company.end_cidade} - CEP: {company.end_cep}
             </Text>
           </View>
         </View>

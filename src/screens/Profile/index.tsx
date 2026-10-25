@@ -17,7 +17,6 @@ import { RowProfile } from "../../components/RowProfile";
 import { Modalize } from "react-native-modalize";
 
 import { styles } from "./styles";
-import { PagerAds } from "../../components/PagerAds";
 
 export function Profile() {
     const modalRef = useRef<Modalize>(null);
@@ -113,7 +112,6 @@ export function Profile() {
                         onPress={() => navigation.navigate("Settings")}
                     />
                 </View>
-                <PagerAds />
 
                 <View style={styles.section}>
                     <RowProfile

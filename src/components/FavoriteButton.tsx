@@ -94,7 +94,6 @@ export function FavoritesButton({
   function handleSelect(address: Address) {
 
     setSelectedAddress(address);
-
     modalRef.current?.close();
 
     setTimeout(() => {
@@ -121,14 +120,10 @@ export function FavoritesButton({
       setOrigin(formatted);
 
     } else {
-
-      if (destination) {
-        showToast({
-          title: "Destino substituído",
-          status: "info"
-        });
-      }
-
+      showToast({
+        title: "Destino substituído",
+        status: "info"
+      });
       setDestination(formatted);
     }
 
@@ -257,7 +252,6 @@ export function FavoritesButton({
       />
 
 
-      {/* MODAL ESCOLHER CAMPO */}
 
       <Modalize
         ref={fieldModalRef}

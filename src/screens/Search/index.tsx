@@ -25,8 +25,8 @@ import { api } from "../../services/api";
 type Empresa = {
     emp_codigo: number;
     emp_nome: string;
-    emp_bairro?: string | null;
-    emp_cidade?: string | null;
+    end_bairro?: string | null;
+    end_cidade?: string | null;
     emp_logotipo?: string | null;
 };
 
@@ -45,8 +45,8 @@ function normalizeText(value: string = "") {
 function getSimilarityScore(company: Empresa, query: string) {
     const normalizedQuery = normalizeText(query);
     const name = normalizeText(company.emp_nome || "");
-    const district = normalizeText(company.emp_bairro || "");
-    const city = normalizeText(company.emp_cidade || "");
+    const district = normalizeText(company.end_bairro || "");
+    const city = normalizeText(company.end_cidade || "");
 
     if (!normalizedQuery) return 0;
 
@@ -192,9 +192,7 @@ export function Search() {
             setLoadingCompanies(true);
             setErrorMessage("");
 
-            const response = await api.get<{ success: boolean; data: Empresa[] }>(
-                `/users/companies/${encodeURIComponent(cidade)}`
-            );
+            const response = await api.get<{ success: boolean; data: Empresa[] }>(`/companies/${encodeURIComponent(cidade)}`);
 
             const data = Array.isArray(response?.data?.data) ? response.data.data : [];
             setCompanies(data);
@@ -321,7 +319,7 @@ export function Search() {
                             <View style={styles.metaRow}>
                                 <Ionicons name="location-outline" size={13} color="#98A2B3" />
                                 <Text style={styles.companyMeta} numberOfLines={1}>
-                                    {item.emp_bairro || item.emp_cidade || "Localização indisponível"}
+                                    {item.end_bairro || item.end_cidade || "Localização indisponível"}
                                 </Text>
                             </View>
                         </View>

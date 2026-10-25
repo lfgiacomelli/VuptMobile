@@ -440,7 +440,7 @@ const styles = StyleSheet.create({
   },
 
   blurLayer: {
-    ...StyleSheet.absoluteFillObject,
+    ...StyleSheet.absoluteFill,
   },
 
   tabsRow: {

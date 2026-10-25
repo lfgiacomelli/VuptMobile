@@ -293,7 +293,6 @@ export function Support() {
 
             <View style={styles.summaryCard}>
                 <View style={styles.summaryLeft}>
-                    <Text style={styles.summaryEyebrow}>Visão geral</Text>
                     <Text style={styles.summaryTitle}>Seus chamados abertos</Text>
                     <Text style={styles.summaryDescription}>{summaryText}</Text>
                 </View>
@@ -459,7 +458,7 @@ const styles = StyleSheet.create({
     },
 
     headerContent: {
-        paddingHorizontal: 20,
+        paddingHorizontal: 10,
         paddingBottom: 18,
     },
 
@@ -482,10 +481,10 @@ const styles = StyleSheet.create({
         marginBottom: 8,
     },
 
-
     summaryCard: {
+        width: "100%",
         backgroundColor: "#FFFFFF",
-        borderRadius: 24,
+        borderRadius: 12,
         borderWidth: 1,
         borderColor: "#E5E7EB",
         padding: 18,
@@ -505,13 +504,6 @@ const styles = StyleSheet.create({
         paddingRight: 12,
     },
 
-    summaryEyebrow: {
-        fontSize: 11,
-        fontFamily: "Righteous",
-        color: "#9CA3AF",
-        marginBottom: 4,
-    },
-
     summaryTitle: {
         fontSize: 18,
         fontFamily: "Righteous",
@@ -529,7 +521,7 @@ const styles = StyleSheet.create({
     primaryActionButton: {
         minWidth: 92,
         height: 46,
-        borderRadius: 16,
+        borderRadius: 10,
         backgroundColor: "#111827",
         alignItems: "center",
         justifyContent: "center",
